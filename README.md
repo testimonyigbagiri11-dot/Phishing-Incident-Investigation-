@@ -1,12 +1,10 @@
 # Cloudora Payroll Phishing Campaign Investigation
 
-> **SOC / Incident Response portfolio project — simulated client engagement**
->
-> Cloudora and all indicators in this repository are fictional training data. The `.example` domain and reserved documentation IP ranges are used intentionally. This repository contains no real client data.
+
 
 ## Executive summary
 
-I investigated a payroll-themed phishing campaign targeting a fictional B2B HR software company, Cloudora. The campaign used two delivery techniques:
+I investigated a payroll phishing campaign targeting a fictional B2B HR software company, Cloudora. The campaign used two delivery techniques:
 
 - **Variant A:** direct spoofing of `cloudora.io`, with SPF, DKIM and DMARC failures.
 - **Variant B:** an attacker-controlled lookalike domain, `cloudora-hr-portal.example`, that **passed SPF, DKIM and DMARC for the lookalike domain**.
@@ -159,7 +157,3 @@ The correlation rule intentionally avoids hard-coding this campaign's attacker I
 └── evidence/
     └── README.md
 ```
-
-## Disclaimer
-
-This is a **simulated SOC investigation completed as a portfolio/training project**, not paid client work or employment experience. All organisations, users and indicators are fictional or reserved for documentation/training.
