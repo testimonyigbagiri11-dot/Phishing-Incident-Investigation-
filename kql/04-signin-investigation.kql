@@ -1,0 +1,8 @@
+// Build a full incident day sign-in timeline for a selected user
+let InvestigatedUser = "ryan.boyd@cloudora.io";
+CloudoraSignin_CL
+| where UserPrincipalName =~ InvestigatedUser
+| where TimeGenerated between (datetime(2026-08-25 00:00:00) .. datetime(2026-08-25 23:59:59))
+| project TimeGenerated, UserPrincipalName, AppDisplayName, IPAddress,
+          City, Country, DeviceOS, Browser, ResultType
+| order by TimeGenerated asc

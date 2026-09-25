@@ -1,0 +1,6 @@
+// Scope phishing delivery by campaign, sender, authentication and disposition
+CloudoraMsgTrace_CL
+| where EventType == "Delivery"
+| summarize Messages=count(), Recipients=dcount(RecipientAddress)
+    by Campaign, SenderIP, SPFResult, DKIMResult, DMARCResult, DeliveryAction
+| order by Campaign asc, SenderIP asc

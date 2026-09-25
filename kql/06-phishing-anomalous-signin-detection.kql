@@ -1,0 +1,26 @@
+// Scheduled analytic: successful anomalous sign-in shortly after a phishing click.
+// Adapt NormalCountries to the organisation's footprint, or preferably replace it
+// with a per-user historical baseline in production.
+let CorrelationWindow = 6h;
+let NormalCountries = dynamic(["United Kingdom", "United States"]);
+let Clicks =
+    CloudoraMsgTrace_CL
+    | where EventType == "Click"
+    | project ClickTime=TimeGenerated,
+              UserPrincipalName=RecipientAddress,
+              Url,
+              ClickIP,
+              CredentialsSubmitted;
+CloudoraSignin_CL
+| where ResultType == "0"
+| project LoginTime=TimeGenerated, UserPrincipalName, IPAddress, Country,
+          City, DeviceOS, Browser, AppDisplayName
+| join kind=inner Clicks on UserPrincipalName
+| where LoginTime between (ClickTime .. (ClickTime + CorrelationWindow))
+| where IPAddress != ClickIP
+| where Country !in (NormalCountries)
+| extend MinutesAfterClick=datetime_diff("minute", LoginTime, ClickTime)
+| project UserPrincipalName, ClickTime, CredentialsSubmitted, Url,
+          LoginTime, MinutesAfterClick, IPAddress, Country, City,
+          DeviceOS, Browser, AppDisplayName
+| order by LoginTime asc

@@ -1,0 +1,9 @@
+// Example incident pivot: identify accounts successfully accessed from a suspicious range.
+// In production, source suspicious IPs from detections/threat intelligence rather than hard coding them.
+CloudoraSignin_CL
+| where IPAddress startswith "198.18.7."
+| where ResultType == "0"
+| summarize FirstSeen=min(TimeGenerated), LastSeen=max(TimeGenerated),
+            Apps=make_set(AppDisplayName)
+    by UserPrincipalName, IPAddress, Country
+| order by FirstSeen asc

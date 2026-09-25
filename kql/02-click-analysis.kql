@@ -1,0 +1,5 @@
+// Identify phishing link clicks and whether credentials were submitted
+CloudoraMsgTrace_CL
+| where EventType == "Click"
+| project TimeGenerated, RecipientAddress, Campaign, Url, ClickIP, CredentialsSubmitted
+| order by TimeGenerated asc
