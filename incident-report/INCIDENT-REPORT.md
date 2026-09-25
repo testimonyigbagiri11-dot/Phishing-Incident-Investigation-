@@ -6,20 +6,17 @@
 **Date:** 25 August 2026  
 **Severity:** P1  
 **Status:** Contained  
-**Classification:** Simulated SOC Portfolio Project  
-
-> **Portfolio disclaimer:** This report documents a fictional Cloudora incident completed as a SOC training/portfolio exercise. The users, organisation, domains and IP addresses shown are synthetic or reserved training data.
-
+ 
 ---
 
 ## 1. Executive Summary
 
-On 25 August 2026, Cloudora was targeted by a payroll-themed credential-phishing campaign impersonating the company's HR/payroll function.
+On 25 August 2026, Cloudora was targeted by a payroll-themed credential phishing campaign impersonating the company's HR/payroll function.
 
 The investigation identified two phishing techniques:
 
 - **PayrollPhish-A** spoofed the legitimate `cloudora.io` domain and failed SPF, DKIM and DMARC.
-- **PayrollPhish-B** used the attacker-controlled lookalike domain `cloudora-hr-portal.example`. SPF, DKIM and DMARC passed because the attacker authenticated the lookalike domain rather than the legitimate `cloudora.io` domain.
+- **PayrollPhish-B** used the attacker controlled lookalike domain `cloudora-hr-portal.example`. SPF, DKIM and DMARC passed because the attacker authenticated the lookalike domain rather than the legitimate `cloudora.io` domain.
 
 Campaign scoping identified **40 targeted mailboxes**. At least one phishing message was delivered to **36 recipients**, while **4 recipients were fully protected by quarantine**. Six users clicked a phishing link. Four clicked without submitting credentials, while **Freya Lynn** and **Ryan Boyd** submitted credentials.
 
@@ -89,13 +86,13 @@ This message passed SPF, DKIM and DMARC because those controls authenticated the
 
 ### 3.2 Infrastructure Enrichment
 
-Simulated threat-intelligence evidence associated the lookalike domain and related infrastructure with phishing and credential-harvesting activity.
+Simulated threat intelligence evidence associated the lookalike domain and related infrastructure with phishing and credential harvesting activity.
 
 ![VirusTotal domain enrichment](../screenshots/virustotal-domain-enrichment.png)
 
 ![AbuseIPDB IP enrichment](../screenshots/abuseipdb-ip-enrichment.png)
 
-The threat-intelligence results were treated as supporting evidence and correlated with the email and identity telemetry rather than being used as the sole basis for the incident findings.
+The threat intelligence results were treated as supporting evidence and correlated with the email and identity telemetry rather than being used as the sole basis for the incident findings.
 
 ---
 
@@ -181,7 +178,7 @@ Both accounts subsequently authenticated from:
 
 ![Credential victims and subsequent sign-ins](../screenshots/credential-victims-signins.png)
 
-A tenant-wide pivot on the suspicious source identified the same two credential-exposed accounts.
+A tenant wide pivot on the suspicious source identified the same two credential-exposed accounts.
 
 ![Attacker IP account pivot](../screenshots/attacker-ip-account-pivot.png)
 
@@ -232,7 +229,7 @@ The credential submission, subsequent successful Amsterdam authentication, chang
 | 10:36–10:41 | Freya's suspicious session accessed Outlook Web and SharePoint Online |
 | 13:22:05 | **First suspicious successful Ryan sign-in from `198.18.7.200`** |
 | 13:25:33 | Ryan's suspicious session accessed Outlook Web |
-| ~14:00 | Containment actions initiated |
+| 14:00 | Containment actions initiated |
 
 ---
 
@@ -261,7 +258,7 @@ The credential submission, subsequent successful Amsterdam authentication, chang
 | Credential Access | T1598.003 | Phishing for Information: Spearphishing Link | Users were directed to pages designed to collect credentials |
 | Initial Access | T1078.004 | Valid Accounts: Cloud Accounts | Harvested credentials were subsequently used for successful cloud sign-ins |
 
-The campaign also used a lookalike domain. **T1583.001 — Acquire Infrastructure: Domains** provides useful contextual mapping, although the actual registration activity was not directly observed in the supplied telemetry.
+The campaign also used a lookalike domain. T1583.001 — Acquire Infrastructure: Domains provides useful contextual mapping, although the actual registration activity was not directly observed in the supplied telemetry.
 
 ---
 
@@ -504,5 +501,4 @@ Continued monitoring and implementation of the recommended detection improvement
 ---
 
 **Project type:** Simulated SOC / Incident Response investigation  
-**Environment:** Fictional Cloudora training environment  
 **Purpose:** Cybersecurity portfolio and practical SOC investigation demonstration
